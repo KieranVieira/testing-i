@@ -1,23 +1,22 @@
 const { success } = require('./enhancer.js');
 
-const mockItem = {
-    name: 'Lambda Shield',
-    type: 'Weapon',
-    durability: 100,
-    enhancement: 0
-}
-
-const mockItem2 = {
-    name: 'Lambda Shield',
-    type: 'Weapon',
-    durability: 100,
-    enhancement: 1
-}
-
 describe('enhancers.js', () => {
     describe('success()', () => {
         it('Should return item with enhancement +1', () => {
-            expect(success(mockItem)).toEqual(mockItem2)
+            expect(success({
+                name: 'Lambda Shield',
+                type: 'Weapon',
+                durability: 100,
+                enhancement: 0
+            }).enhancement).toBe(1)
+        });
+        it('Should return null if item is already PEN', () => {
+            expect(success({
+                name: 'Lambda Shield',
+                type: 'Weapon',
+                durability: 100,
+                enhancement: 20
+            })).toBeNull()
         });
     });
 })

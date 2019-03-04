@@ -8,7 +8,7 @@ module.exports = {
 
 function success(item){
     if(item.enhancement === 20){
-        return 'already at PEN'
+        return null
     }else{
         item.enhancement++;
         return new Item(item);
