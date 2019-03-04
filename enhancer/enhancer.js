@@ -22,11 +22,20 @@ function success(item){
 }
 
 function fail(item){
-    if(item.durability >= 20){
-        item.enhancement-- ;
-        return new Item(item);
-    }else{
-        return 'Durability is too low'
+    if(item.enhancement < 15){
+        if(item.durability > 25){
+            item.durability -= 5
+            return new Item(item);
+        }else{
+            return null;
+        }
+    }else if(item.enhancement >= 15){
+        if(item.durability > 10){
+            item.durability -= 10;
+            return new Item(item);
+        }else{
+            return null;
+        }
     }
 }
 

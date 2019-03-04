@@ -1,4 +1,4 @@
-const { success } = require('./enhancer.js');
+const { success, fail } = require('./enhancer.js');
 
 describe('enhancers.js', () => {
     describe('success()', () => {
@@ -9,6 +9,34 @@ describe('enhancers.js', () => {
                 durability: 100,
                 enhancement: 0
             }).enhancement).toBe(1)
+
+            expect(success({
+                name: 'Lambda Shield',
+                type: 'Weapon',
+                durability: 100,
+                enhancement: 14
+            }).enhancement).toBe(15)
+
+            expect(success({
+                name: 'Lambda Shield',
+                type: 'Weapon',
+                durability: 100,
+                enhancement: 17
+            }).enhancement).toBe(18)
+
+            expect(success({
+                name: 'Lambda Shield',
+                type: 'Weapon',
+                durability: 1,
+                enhancement: 17
+            }).enhancement).toBe(18)
+
+            expect(success({
+                name: 'Lambda Shield',
+                type: 'Weapon',
+                durability: 21,
+                enhancement: 14
+            }).enhancement).toBe(15)
         });
         it('Should return null if item is already PEN', () => {
             expect(success({
@@ -33,6 +61,52 @@ describe('enhancers.js', () => {
                 durability: 0,
                 enhancement: 15
             })).toBeNull()
+        });
+    });
+    describe('fail()', () => {
+        it('Should return durability -10 on fail if enhancement is > 14', () => {
+            expect(fail({
+                name: 'Lambda Shield',
+                type: 'Weapon',
+                durability: 21,
+                enhancement: 15
+            }).durability).toBe(11)
+        });
+        it('Should return durabiltiy -5 on fail if enhancement is < 15 ', () => {
+            expect(fail({
+                name: 'Lambda Shield',
+                type: 'Weapon',
+                durability: 26,
+                enhancement: 14
+            }).durability).toBe(21)
+        });
+        it('Should return null if enhancment is > 14 and durability is <= 10', () => {
+            expect(fail({
+                name: 'Lambda Shield',
+                type: 'Weapon',
+                durability: 10,
+                enhancement: 15
+            })).toBeNull();
+            expect(fail({
+                name: 'Lambda Shield',
+                type: 'Weapon',
+                durability: 5,
+                enhancement: 20
+            })).toBeNull();
+        });
+        it('Should return null if enhancment is <= 14 and durability is less than 25', () => {
+            expect(fail({
+                name: 'Lambda Shield',
+                type: 'Weapon',
+                durability: 25,
+                enhancement: 14
+            })).toBeNull();
+            expect(fail({
+                name: 'Lambda Shield',
+                type: 'Weapon',
+                durability: 1,
+                enhancement: 2
+            })).toBeNull();
         });
     });
 })
