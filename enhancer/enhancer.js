@@ -40,7 +40,10 @@ function fail(item){
 }
 
 function repair(item){
-    item.durability = 100;
-    
-    return new Item(item)
+    if(item.durability < 100){
+        item.durability = 100;
+        return new Item(item)
+    }else{
+        return null
+    }
 }

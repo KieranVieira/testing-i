@@ -1,4 +1,4 @@
-const { success, fail } = require('./enhancer.js');
+const { success, fail, repair } = require('./enhancer.js');
 
 describe('enhancers.js', () => {
     describe('success()', () => {
@@ -106,6 +106,24 @@ describe('enhancers.js', () => {
                 type: 'Weapon',
                 durability: 1,
                 enhancement: 2
+            })).toBeNull();
+        });
+    });
+    describe('repair()', () => {
+        it('Should repair item to 100 durability if durability is not already 100', () => {
+            expect(repair({
+                name: 'Lambda Shield',
+                type: 'Weapon',
+                durability: 25,
+                enhancement: 14
+            }).durability).toBe(100);
+        });
+        it('Should return null if item is already at 100 durability', () => {
+            expect(repair({
+                name: 'Lambda Shield',
+                type: 'Weapon',
+                durability: 100,
+                enhancement: 14
             })).toBeNull();
         });
     });
