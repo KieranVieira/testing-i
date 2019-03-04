@@ -32,6 +32,9 @@ function fail(item){
     }else if(item.enhancement >= 15){
         if(item.durability > 10){
             item.durability -= 10;
+            if(item.enhancement > 16){
+                item.enhancement -= 1;
+            }
             return new Item(item);
         }else{
             return null;

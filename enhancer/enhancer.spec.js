@@ -108,6 +108,20 @@ describe('enhancers.js', () => {
                 enhancement: 2
             })).toBeNull();
         });
+        it('Should downgrade enhancement by 1 if enhancement is > 16 && durability > 10', () => {
+            expect(fail({
+                name: 'Lambda Shield',
+                type: 'Weapon',
+                durability: 25,
+                enhancement: 16
+            }).enhancement).toBe(16);
+            expect(fail({
+                name: 'Lambda Shield',
+                type: 'Weapon',
+                durability: 25,
+                enhancement: 17
+            }).enhancement).toBe(16)
+        });
     });
     describe('repair()', () => {
         it('Should repair item to 100 durability if durability is not already 100', () => {
