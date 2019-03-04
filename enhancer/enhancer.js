@@ -10,9 +10,15 @@ function success(item){
     if(item.enhancement === 20){
         return null
     }else{
-        item.enhancement++;
-        return new Item(item);
-    }
+        if(item.durability <= 20 && item.enhancement <= 14){
+            return null
+        }else if(item.durability <= 0 && item.enhancement >= 15){
+            return null
+        }else{
+            item.enhancement++;
+            return new Item(item);
+        }  
+    } 
 }
 
 function fail(item){

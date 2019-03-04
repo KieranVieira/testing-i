@@ -18,5 +18,21 @@ describe('enhancers.js', () => {
                 enhancement: 20
             })).toBeNull()
         });
+        it('Should return null if item has less than 20 durability and is <= +14', () => {
+            expect(success({
+                name: 'Lambda Shield',
+                type: 'Weapon',
+                durability: 15,
+                enhancement: 6
+            })).toBeNull()
+        });
+        it('Should return null if item has less than 0 durability and is >= +15', () => {
+            expect(success({
+                name: 'Lambda Shield',
+                type: 'Weapon',
+                durability: 0,
+                enhancement: 15
+            })).toBeNull()
+        });
     });
 })
